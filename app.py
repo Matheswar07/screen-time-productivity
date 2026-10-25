@@ -313,7 +313,22 @@ with col2:
 # VALIDATION
 # ==========================================================
 
-if productive_phone_use > study_time:
+total_activity_time = (
+    social_media
+    + productive_phone_use
+    + entertainment
+)
+
+activity_exceeds_screen_time = total_activity_time > screen_time
+productive_use_exceeds_study_time = productive_phone_use > study_time
+
+if activity_exceeds_screen_time:
+
+    st.error(
+        "⚠️ Social Media, Productive Phone Use, and Entertainment hours combined cannot exceed Screen Time hours."
+    )
+
+if productive_use_exceeds_study_time:
 
     st.error(
         "⚠️ Productive Phone Use cannot be greater than Study Time."
@@ -338,7 +353,13 @@ predict = st.button(
 
 if predict:
 
-    if productive_phone_use > study_time:
+    if activity_exceeds_screen_time:
+
+        st.error(
+            "⚠️ Social Media, Productive Phone Use, and Entertainment hours combined cannot exceed Screen Time hours."
+        )
+
+    elif productive_use_exceeds_study_time:
 
         st.error(
             "Please make sure Productive Phone Use is "
